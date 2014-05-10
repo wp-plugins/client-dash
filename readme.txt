@@ -71,4 +71,3 @@ Using this plugin is very simple. All you have to do is:
 * Removed bbPress and Woocommerce dashboard widgets
 * Hide screen options and help pulldowns from dashboard
 * Other fixes and general improvements
-* 
