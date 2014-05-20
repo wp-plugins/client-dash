@@ -3,8 +3,8 @@
 Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
-Tested up to: 3.9
-Stable tag: 1.1.1
+Tested up to: 3.9.1
+Stable tag: 1.1.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,8 +47,10 @@ Using this plugin is very simple. All you have to do is:
 
 == Changelog ==
 
-= 1.1.1 =
+= 1.1.2 =
+* Patch to fix potential fatal error when running on older versions of PHP
 
+= 1.1.1 =
 * Fixed fatal error problem
 
 = 1.1 =
@@ -69,10 +71,11 @@ Using this plugin is very simple. All you have to do is:
 
 == Upgrade Notice ==
 
-= 1.1.1 =
+= 1.1.2 =
 
 * Fixed fatal error thanks to @bretterer
 * Added admin options for displaying dashboard widgets
 * Removed bbPress and Woocommerce dashboard widgets
 * Hide screen options and help pulldowns from dashboard
 * Other fixes and general improvements
+* Removed inline function which causes parse error on older versions of PHP
