@@ -1,100 +1,81 @@
-=== Display Post Meta ===
+=== Client Dash ===
 
-Contributors: BrashRebel
-
-Tags: post meta, custom fields, taxonomies
-
-Requires at least: 3.0.0
-
-Tested up to: 3.5.2
-
-Stable tag: 1.1.1
-
+Contributors: BrashRebel, joelworsham
+Tags: client, portal, dashboard, admin, users, webmaster
+Requires at least: 3.8.0
+Tested up to: 3.9.1
+Stable tag: 1.1.3
 License: GPLv2 or later
-
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-
 
 == Description ==
 
+= Webmasters rejoice! =
 
+At long last, a vastly improved interface for clients has arrived. Client Dash seeks to provide a simplified and intuitive admin user experience for customers who login to WordPress sites which were developed and are managed by an agency/webmaster.
 
-This plugin was designed for the purpose of outputting the meta data associated with a WP post or page so developers and site designers can verify what information is available.
+= What does Client Dash do? =
 
-To use this plugin, simply activate then either simply navigate to a post, page or custom post type and then click on the "DPM" link in the toolbar. For those who have the toolbar disabled, setting show_meta=true in the URL will activate the meta display. Example:
+Upon activation, Client Dash modifies the wp-admin in the following ways:
 
-`http://example.com/test-post/?show_meta=true`
+* Removes all default dashboard widgets
+* Provides options for selectively adding back dashboard widgets
+* Creates several new admin pages and adds their links under Dashboard in the admin menu
+* Creates new dashboard widgets with large buttons that direct users to these new pages
+* Adds tabs with helpful information on each of these new pages
+* Removes the WordPress logo and menu from the toolbar
+* (Multisite) Removes the My Sites menu from the toolbar and the admin menu
+* (Multisite) Moves the My Sites information to a tab on the Account page
 
+There is a lot more to come from this plugin in the future. Client Dash has been designed from day 1 to be as flexible as possible so if you are a developer you will absolutely love it. In the near future we will be publishing detailed documentation on how this plugin can be modified and extended. We will also be releasing numerous extensions of our own which will integrate with a variety of useful external tools to help you provide even more value to your customers.
 
+We are also extremely receptive to suggestions, feature requests and colaborations so if you have anything to add or that you would like to see us add, please visit the support forum here and engage us. Also stay tuned as we are working on lots of new updates to this plugin and are also actively developing some exciting add-ons.
 
 == Installation ==
 
-
-
 Using this plugin is very simple. All you have to do is:
 
+1. Upload the `client-dash` folder to the `/wp-content/plugins/` directory
 
-1. Upload the `display-post-meta` folder to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
 
-1. Activate the plugin through the 'Plugins' menu in WordPress
-
-1. Navigate to any Post or Page on your website and click on the "DPM" link in the toolbar.
-
-
-
-== Frequently Asked Questions ==
-
-
-
-= What is this plugin for? =
-
-
-
-When working with WordPress it is often useful to view the meta data that is being associated with a given post or page. This can be helpful especially when designing templates and other such things. This plugin simply outputs in a  visual way, all the data it can find.
-
-
-
-= What can we expect in future releases? =
-
-
-
-* Better support for custom taxonomies.
-
-* A better looking design.
-
-* Choices for how you would like to the data to be displayed.
-
-
+3. Configure settings by going to Settings - >Client Dash
 
 == Screenshots ==
 
-1. screenshot-1.png
-
-Data is output in tabs on the side of the screen that reveal more on hover.
-
-
+1. The wp-admin dashboard as seen by users with the Administrator role. The widgets and pages this plugin creates will be visible by anyone with the Author role and above (Version 1.0).
 
 == Changelog ==
 
-= 1.1.1 =
+= 1.1.2 =
+* Patch to fix potential fatal error when running on older versions of PHP
 
-* Better function names
-* DPM link actually adds a query arg instead of just appending to the URL
-* Display now looks for the show_meta query parameter instead of parsing the URL
+= 1.1.1 =
+* Fixed fatal error problem
 
 = 1.1 =
-
-* Better CSS
-* Fixed taxonomy loop to no longer nest
+* Added options page under "Settings->Client Dash".
+* Added ability to selectively display dashboard widgets that are automatically removed on options page.
+* Removal of dashboard widgets now dynamic, so only Client Dash widgets will exist.
+* Removed "Screen Options" and "Help" from dashboard.
+* Removed dashboard widgets from bbPress and Woocommerce
 
 = 1.0 =
-
-
 * Initial release.
-
-
+* Includes Help page with an Info tab.
+* Includes Account page with About and Sites tabs.
+* Includes Reports page with Site Overview tab.
+* Removes default WordPress dashboard widgets.
+* Removes WP logo and menu from toolbar.
+* Adds dashboard widgets for each new submenu page.
 
 == Upgrade Notice ==
 
-= 1.1.1 =
+= 1.1.2 =
+
+* Fixed fatal error thanks to @bretterer
+* Added admin options for displaying dashboard widgets
+* Removed bbPress and Woocommerce dashboard widgets
+* Hide screen options and help pulldowns from dashboard
+* Other fixes and general improvements
+* Removed inline function which causes parse error on older versions of PHP
