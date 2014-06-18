@@ -1,5 +1,9 @@
 <?php
-function cd_core_about_tab() {
+
+/**
+ * Outputs About tab for Account page.
+ */
+function cd_core_account_about_tab() {
   // Get the current user object
   global $current_user;
 
@@ -11,8 +15,8 @@ function cd_core_about_tab() {
   $cd_userregistered = $current_user->user_registered;
 
   // Get current user role
-  $user_roles  = $current_user->roles;
-  $cd_userrole = ucwords(array_shift($user_roles));
+  global $wp_roles;
+  $cd_userrole = $wp_roles->role_names[$current_user->roles[0]];
   ?>
 
   <table class="form-table">
@@ -45,4 +49,4 @@ function cd_core_about_tab() {
 <?php
 }
 
-add_action('cd_account_about_tab', 'cd_core_about_tab');
+add_action('cd_account_about_tab', 'cd_core_account_about_tab');

@@ -1,7 +1,11 @@
 <?php
+
+/**
+ * Outputs Info tab under Help page.
+ */
 function cd_core_info_tab() {
   // Get the user information
-  $cd_current_theme  = get_current_theme();
+  $cd_current_theme  = wp_get_theme();
   $cd_plugins        = get_plugins();
   $cd_active_plugins = get_option('active_plugins');
   global $wp_version;
