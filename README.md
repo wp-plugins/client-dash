@@ -1,20 +1,10 @@
-=== Client Dash ===
+# Client Dash
 
-Contributors: BrashRebel, joelworsham
-Tags: client, portal, dashboard, admin, users, webmaster
-Requires at least: 3.8.0
-Tested up to: 3.9.1
-Stable tag: 1.3
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
-
-== Description ==
-
-= Webmasters rejoice! =
+[Releases](https://github.com/brashrebel/client-dash/releases)
 
 At long last, a vastly improved interface for clients has arrived. Client Dash seeks to provide a simplified and intuitive admin user experience for customers who login to WordPress sites which were developed and are managed by an agency/webmaster.
 
-= What does Client Dash do? =
+## What does Client Dash do?
 
 Upon activation, Client Dash modifies the wp-admin in the following ways:
 
@@ -31,7 +21,9 @@ There is a lot more to come from this plugin in the future. Client Dash has been
 
 We are also extremely receptive to suggestions, feature requests and collaborations so if you have anything to add or that you would like to see included in Client Dash, please visit the support forum here and engage us. Also, stay tuned as we are working on lots of new updates to this plugin and are also actively developing some exciting add-ons.
 
-== Installation ==
+![alt tag](https://raw.github.com/brashrebel/client-dash/master/screenshot.png)
+
+## Installation
 
 Using this plugin is very simple. All you have to do is:
 
@@ -41,14 +33,10 @@ Using this plugin is very simple. All you have to do is:
 
 3. Configure settings by going to Settings - >Client Dash
 
-== Screenshots ==
+## Changelog
 
-1. The wp-admin dashboard as seen by users with the Administrator role. The widgets and pages this plugin creates will be visible by anyone with the Author role and above (Version 1.0).
-
-== Changelog ==
-
-= 1.3 =
-* Added Dashicons customization in Settings.
+### [1.3](https://github.com/brashrebel/client-dash/releases/tag/v1.3)
+* Added dashicons customization in Settings.
 * Added Addons page for browsing available addons.
 * Added alert for empty Webmaster tab.
 * Added ability to change number of feed entries pulled.
@@ -60,12 +48,12 @@ Using this plugin is very simple. All you have to do is:
 * Added filter to hide submit button when desired.
 * Added conditionals for displaying account information on About tab of Account.
 
-= 1.2.2 =
+### [1.2.2](https://github.com/brashrebel/client-dash/releases/tag/v1.2.2)
 * Changed `get_current_theme()` to `wp_get_theme()` since the former is deprecated (thanks to @sethalling).
 * Modified method for getting role name (thanks @sethalling).
 * Added `cd_(WIDGET NAME)_widget` filter on contents of current dashboard widgets.
 
-= 1.2.1 =
+### [1.2.1](https://github.com/brashrebel/client-dash/releases/tag/v1.2.1)
 * Fixed php warning.
 * Safeguarded require_once occurrences for potential issues.
 * Reformatted code.
@@ -77,7 +65,7 @@ Using this plugin is very simple. All you have to do is:
 * Removed Webmaster functionality (will be in future release).
 * Corrected link for Reports dashboard widget
 
-= 1.2 =
+### [1.2](https://github.com/brashrebel/client-dash/releases/tag/v1.2)
 * Enqueued `client-dash.js` with `updown` function.
 * Added `cd-click` class to `client-dash.css` for `cursor: pointer`.
 * Rearranged information on Site tab on Reports page to be more clear.
@@ -90,20 +78,20 @@ Using this plugin is very simple. All you have to do is:
 * Allow user to rename webmaster page/menu-item.
 * Allow user to add custom html content to a custom tab on webmaster page.
 
-= 1.1.2 =
+### [1.1.2](https://github.com/brashrebel/client-dash/releases/tag/v1.1.2)
 * Patch to fix potential fatal error when running on older versions of PHP.
 
-= 1.1.1 =
+### [1.1.1](https://github.com/brashrebel/client-dash/releases/tag/v1.1.1)
 * Fixed fatal error problem.
 
-= 1.1 =
+### [1.1](https://github.com/brashrebel/client-dash/releases/tag/v1.1)
 * Added options page under "Settings->Client Dash".
 * Added ability to selectively display dashboard widgets that are automatically removed on options page.
 * Removal of dashboard widgets now dynamic, so only Client Dash widgets will exist.
 * Removed "Screen Options" and "Help" from dashboard.
 * Removed dashboard widgets from bbPress and Woocommerce
 
-= 1.0 =
+### [1.0](https://github.com/brashrebel/client-dash/releases/tag/v1.0)
 * Initial release.
 * Includes Help page with an Info tab.
 * Includes Account page with About and Sites tabs.
@@ -111,8 +99,3 @@ Using this plugin is very simple. All you have to do is:
 * Removes default WordPress dashboard widgets.
 * Removes WP logo and menu from toolbar.
 * Adds dashboard widgets for each new submenu page.
-
-== Upgrade Notice ==
-
-= 1.2.1 =
-* PLEASE UPDATE IMMEDIATELY: Fixed fatal error issue.
