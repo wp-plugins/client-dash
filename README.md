@@ -21,8 +21,6 @@ There is a lot more to come from this plugin in the future. Client Dash has been
 
 We are also extremely receptive to suggestions, feature requests and collaborations so if you have anything to add or that you would like to see included in Client Dash, please visit the support forum here and engage us. Also, stay tuned as we are working on lots of new updates to this plugin and are also actively developing some exciting add-ons.
 
-![alt tag](https://raw.github.com/brashrebel/client-dash/master/screenshot.png)
-
 ## Installation
 
 Using this plugin is very simple. All you have to do is:
@@ -34,6 +32,10 @@ Using this plugin is very simple. All you have to do is:
 3. Configure settings by going to Settings - >Client Dash
 
 ## Changelog
+
+### [1.3.1](https://github.com/brashrebel/client-dash/releases/tag/v1.3.1)
+* Fixed save button issue on Icons page.
+* Added install/activate/deactivate button on addons page.
 
 ### [1.3](https://github.com/brashrebel/client-dash/releases/tag/v1.3)
 * Added dashicons customization in Settings.
