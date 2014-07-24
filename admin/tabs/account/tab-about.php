@@ -27,7 +27,7 @@ function cd_core_account_about_tab() {
 			<td><?php echo $cd_username; ?></td>
 		</tr>
 
-		<?php if( $cd_firstname || $cd_lastname ): ?>
+		<?php if ( $cd_firstname || $cd_lastname ): ?>
 			<tr valign="top">
 				<th scope="row">Your name</th>
 				<td><?php echo $cd_firstname . ' ' . $cd_lastname; ?></td>
@@ -39,7 +39,7 @@ function cd_core_account_about_tab() {
 			<td><?php echo $cd_useremail; ?></td>
 		</tr>
 
-		<?php if( $cd_url ): ?>
+		<?php if ( $cd_url ): ?>
 			<tr valign="top">
 				<th scope="row">Your URL</th>
 				<td><a href="<?php echo $cd_url; ?>" target="_blank"><?php echo $cd_url; ?></a></td>
@@ -54,7 +54,9 @@ function cd_core_account_about_tab() {
 		<tr valign="top">
 			<th scope="row">Your role</th>
 			<td><?php echo $cd_userrole; ?>
-				<span class="cd-caps cd-click" onclick="cd_updown('cd-caps');"> [?]</span>
+				<span class="cd-caps cd-click dashicons dashicons-info"
+				      onclick="cd_updown('cd-caps');"
+				      style="color:<?php echo cd_get_color_scheme( 'secondary' ); ?>"></span>
 	        <span id="cd-caps" style="display: none;">
 	          <h4><?php echo $cd_userrole; ?>s are able to:</h4>
 		        <?php
@@ -79,4 +81,9 @@ function cd_core_account_about_tab() {
 <?php
 }
 
-add_action( 'cd_account_about_tab', 'cd_core_account_about_tab' );
+cd_content_block(
+	'Core Account Basic',
+	'account',
+	'About You',
+	'cd_core_account_about_tab'
+);

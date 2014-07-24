@@ -14,6 +14,30 @@ require_once( plugin_dir_path( __FILE__ ) . 'pages/page-reports.php' );
 require_once( plugin_dir_path( __FILE__ ) . 'pages/page-settings.php' );
 
 // Add tab files
+$cd_existing_pages = array(
+	'account'   => array(
+		'about',
+		'sites'
+	),
+	'help'      => array(
+		'info',
+		'domain'
+	),
+	'reports'   => array(
+		'site'
+	),
+	'webmaster' => array(
+		'main',
+		'feed'
+	),
+	'settings'  => array(
+		'general',
+		'icons',
+		'webmaster',
+		'roles',
+		'addons'
+	)
+);
 foreach ( $cd_existing_pages as $page => $tabs ) {
 	foreach ( $tabs as $tab ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'tabs/' . $page . '/tab-' . $tab . '.php' );

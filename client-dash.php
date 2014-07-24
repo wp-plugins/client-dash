@@ -2,7 +2,7 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.3.2
+Version: 1.4
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -32,10 +32,23 @@ function cd_admin_colors() {
 add_action( 'admin_init', 'cd_admin_colors' );
 
 /**
- * Include javascript.
+ * Register files.
  */
-function cd_scripts() {
-	wp_enqueue_script( 'cd-scripts', plugin_dir_url( __FILE__ ) . 'js/client-dash.js' );
+function cd_register_scripts() {
+	wp_register_script(
+		'cd-scripts',
+		plugin_dir_url( __FILE__ ) . 'js/client-dash.js',
+		array( 'jquery', 'jquery-ui-sortable' )
+	);
 }
 
-add_action( 'admin_enqueue_scripts', 'cd_scripts' );
+add_action( 'admin_init', 'cd_register_scripts' );
+
+/**
+ * Enqueue files.
+ */
+function cd_enqueue_scripts() {
+	wp_enqueue_script( 'cd-scripts' );
+}
+
+add_action( 'admin_enqueue_scripts', 'cd_enqueue_scripts' );

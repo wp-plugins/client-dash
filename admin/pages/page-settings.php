@@ -4,23 +4,29 @@
  * Register all settings for Client Dash.
  */
 function cd_register_settings() {
+	// General Tab
 	register_setting( 'cd_options_general', 'cd_remove_which_widgets' );
 	register_setting( 'cd_options_general', 'cd_hide_page_account' );
 	register_setting( 'cd_options_general', 'cd_hide_page_reports' );
 	register_setting( 'cd_options_general', 'cd_hide_page_help' );
 
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_name', 'sanitize_text_field' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_enable' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_custom_content_tab' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_custom_content' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed_url', 'esc_url' );
-	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed_count' );
-
+	// Icons Tab
 	register_setting( 'cd_options_icons', 'cd_dashicon_account' );
 	register_setting( 'cd_options_icons', 'cd_dashicon_reports' );
 	register_setting( 'cd_options_icons', 'cd_dashicon_help' );
 	register_setting( 'cd_options_icons', 'cd_dashicon_webmaster' );
+
+	// Webmaster Tab
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_name', 'sanitize_text_field' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_enable' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_main_tab_name' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_main_tab_content' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed_url', 'esc_url' );
+	register_setting( 'cd_options_webmaster', 'cd_webmaster_feed_count' );
+
+	// Roles Tab
+	register_setting( 'cd_options_roles', 'cd_content_blocks_roles' );
 
 	do_action( 'cd_register_settings' );
 }
@@ -41,20 +47,23 @@ function cd_settings_page() {
 		<form method="post" action="options.php">
 			<?php
 			// Get the current tab, if set
-			if ( isset( $_GET['tab'] ) )
+			if ( isset( $_GET['tab'] ) ) {
 				$tab = $_GET['tab'];
-			else
+			} else {
 				$tab = 'general';
+			}
 
 			// Prepare cd_settings
 			settings_fields( 'cd_options_' . $tab );
 
-			cd_the_page_title();
+			cd_the_page_title( 'settings' );
 			cd_create_tab_page();
 
 			// Can turn off submit button with this filter
 			// EG: add_filter( 'cd_submit', '__return_false' );
-			if ( apply_filters( 'cd_submit', true) ) submit_button();
+			if ( apply_filters( 'cd_submit', true ) ) {
+				submit_button();
+			}
 			?>
 		</form>
 	</div>
