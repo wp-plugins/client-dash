@@ -3,8 +3,8 @@
 Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
-Tested up to: 3.9.1
-Stable tag: 1.4
+Tested up to: 3.9.2
+Stable tag: 1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,11 +47,23 @@ Using this plugin is very simple. All you have to do is:
 
 == Changelog ==
 
+= 1.5 =
+* Added dashboard widget customization.
+* Added Settings -> Widgets for dashboard widget customization.
+* Added defaults to Roles settings.
+* Reversed checkbox logic for Roles settings.
+* Added ability to strip out any dashboard widget settings that may be set.
+* Added cd-tips, which are handy tooltips.
+* Added toggle switches for disabling entire pages within the Roles settings.
+* Renamed "Roles" tab in "Settings" to "Display".
+* Changed content "block" system to a content "section" system and separated them out with menus under the tabs.
+* Improved some setting visuals.
+
 = 1.4 =
 * Added Roles customization settings.
 * Overall cleanup of plugin visuals.
 * Added some new nags for specific users.
-* Added new "content block" system for added customization.
+* Added new "content section" system for added customization.
 * Added references to three exciting new extensions on the addons tab.
 * Created new Domain tab on Help page.
 * Added support for custom post types in lists on Reports - >Site.
@@ -133,6 +145,6 @@ Using this plugin is very simple. All you have to do is:
 
 == Upgrade Notice ==
 
-= 1.4 =
-* Please update, as we have added some great new features..
-* Also extensions will not be compatible with versions prior to 1.4.
+= 1.5 =
+* Please update, as we have added some great new features. Also fixed a few pesky bugs.
+* Also extensions will not be compatible with versions prior to 1.5.

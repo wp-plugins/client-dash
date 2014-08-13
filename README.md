@@ -1,4 +1,4 @@
-# Client Dash
+![banner](https://raw.githubusercontent.com/brashrebel/client-dash/master/assets/static/banner.png)
 
 [Releases](https://github.com/brashrebel/client-dash/releases)
 
@@ -21,6 +21,8 @@ There is a lot more to come from this plugin in the future. Client Dash has been
 
 We are also extremely receptive to suggestions, feature requests and collaborations so if you have anything to add or that you would like to see included in Client Dash, please visit the support forum here and engage us. Also, stay tuned as we are working on lots of new updates to this plugin and are also actively developing some exciting add-ons.
 
+![example](https://raw.githubusercontent.com/brashrebel/client-dash/master/assets/static/main-example.gif)
+
 ## Installation
 
 Using this plugin is very simple. All you have to do is:
@@ -33,11 +35,25 @@ Using this plugin is very simple. All you have to do is:
 
 ## Changelog
 
+### [1.5](https://github.com/brashrebel/client-dash/releases/tag/v1.5)
+* Added dashboard widget customization.
+* Added Settings -> Widgets for dashboard widget customization.
+* Added Settings -> Tools.
+* Added a global setting reset button under the new Tools tab.
+* Added defaults to Roles settings.
+* Reversed checkbox logic for Roles settings.
+* Added ability to strip out any dashboard widget settings that may be set.
+* Added cd-tips which are nice little admin tooltips.
+* Added toggle switches for disabling entire pages within the Roles settings.
+* Renamed "Roles" tab in "Settings" to "Display".
+* Changed content "block" system to a content "section" system and separated them out with menus under the tabs.
+* Improved some setting visuals.
+
 ### [1.4](https://github.com/brashrebel/client-dash/releases/tag/v1.4)
 * Added Roles customization settings.
 * Overall cleanup of plugin visuals.
 * Added some new nags for specific users.
-* Added new "content block" system for added customization.
+* Added new "content section" system for added customization.
 * Added references to three exciting new extensions on the addons tab.
 * Created new Domain tab on Help page.
 * Added support for custom post types in lists on Reports - >Site.
