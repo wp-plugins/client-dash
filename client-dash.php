@@ -3,7 +3,7 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.5
+Version: 1.5.1
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -751,6 +751,9 @@ class ClientDash extends ClientDash_Functions {
 
 				// If callback should be an object
 				if ( isset( $widget['is_object'] ) ) {
+					if ( ! class_exists( $widget['callback'][0] ) ) {
+						continue;
+					}
 					$widget['callback'][0] = new $widget['callback'][0];
 				}
 
