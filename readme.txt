@@ -149,6 +149,5 @@ Using this plugin is very simple. All you have to do is:
 
 == Upgrade Notice ==
 
-= 1.5 =
-* Please update, as we have added some great new features. Also fixed a few pesky bugs.
-* Also extensions will not be compatible with versions prior to 1.5.
+= 1.5.1 =
+* Please update, as we have fixed a couple possible deadly bugs.
