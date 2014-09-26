@@ -3,8 +3,8 @@
 Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
-Tested up to: 3.9.2
-Stable tag: 1.5.5
+Tested up to: 4.0.0
+Stable tag: 1.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,6 +46,13 @@ Using this plugin is very simple. All you have to do is:
 1. The wp-admin dashboard as seen by users with the Administrator role. The widgets and pages this plugin creates will be visible by anyone with the Author role and above.
 
 == Changelog ==
+
+= 1.6.0 =
+* Added adminmenu customizing functionality under Settings -> Menus.
+* Revised widgets area to properly use the WP Widget API.
+* Made core much more extensible.
+* Created Widgets, Menus, and Settings API for Client Dash.
+* Other bug fixes and improvements.
 
 = 1.5.5 =
 * Fixed PHP notice error.
@@ -114,7 +121,7 @@ Using this plugin is very simple. All you have to do is:
 
 = 1.2.1 =
 * Fixed php warning.
-* Safeguarded require_once occurrences for potential issues.
+* Safeguarded include_once occurrences for potential issues.
 * Reformatted code.
 * Added missing files causing fatal error.
 * Fixed dashboard widget broken links.
@@ -125,7 +132,7 @@ Using this plugin is very simple. All you have to do is:
 * Corrected link for Reports dashboard widget
 
 = 1.2 =
-* Enqueued `client-dash.js` with `updown` function.
+* Enqueued `cd.main.js` with `updown` function.
 * Added `cd-click` class to `client-dash.css` for `cursor: pointer`.
 * Rearranged information on Site tab on Reports page to be more clear.
 * Added a few pieces of data to Site tab on Reports page.

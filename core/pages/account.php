@@ -6,7 +6,9 @@
  * Creates the toolbar sub-menu item and the page for Account.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Pages
  *
  * @since Client Dash 1.5
  */

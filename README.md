@@ -35,6 +35,13 @@ Using this plugin is very simple. All you have to do is:
 
 ## Changelog
 
+### [1.6.0](https://github.com/brashrebel/client-dash/releases/tag/v1.6.0)
+* Added adminmenu customizing functionality under Settings -> Menus.
+* Revised widgets area to properly use the WP Widget API.
+* Made core much more extensible.
+* Created Widgets, Menus, and Settings API for Client Dash.
+* Other bug fixes and improvements.
+
 ### [1.5.5](https://github.com/brashrebel/client-dash/releases/tag/v1.5.5)
 * Fixed PHP notice error.
 
@@ -103,7 +110,7 @@ Using this plugin is very simple. All you have to do is:
 
 ### [1.2.1](https://github.com/brashrebel/client-dash/releases/tag/v1.2.1)
 * Fixed php warning.
-* Safeguarded require_once occurrences for potential issues.
+* Safeguarded include_once occurrences for potential issues.
 * Reformatted code.
 * Added missing files causing fatal error.
 * Fixed dashboard widget broken links.
@@ -114,7 +121,7 @@ Using this plugin is very simple. All you have to do is:
 * Corrected link for Reports dashboard widget
 
 ### [1.2](https://github.com/brashrebel/client-dash/releases/tag/v1.2)
-* Enqueued `client-dash.js` with `updown` function.
+* Enqueued `cd.main.js` with `updown` function.
 * Added `cd-click` class to `client-dash.css` for `cursor: pointer`.
 * Rearranged information on Site tab on Reports page to be more clear.
 * Added a few pieces of data to Site tab on Reports page.
