@@ -167,6 +167,7 @@ class ClientDash_Core_Page_Settings_Tab_Widgets extends ClientDash {
 				$active_widgets[ $sidebar['id'] ][] = "$widget_ID-$i";
 
 				$cd_widgets_update[ $widget_ID ][ $i ] = array(
+					'_original_title' => $this::$_cd_widgets[ $widget_ID]['title'],
 					'_callback' => $this::$_cd_widgets[ $widget_ID ]['_callback'],
 					'_cd_core'  => '1',
 				);

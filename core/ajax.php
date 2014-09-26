@@ -177,6 +177,10 @@ class ClientDash_AJAX {
 
 			foreach ( $menu_item['submenus'] as $position => $submenu_item ) {
 
+				if ( ! isset( $ID ) ) {
+					continue;
+				}
+
 				// Pass over if current role doesn't have the capabilities
 				if ( ! array_key_exists( $submenu_item['capability'], $role->capabilities ) ) {
 					continue;

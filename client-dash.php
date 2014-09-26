@@ -3,7 +3,7 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.6.1
+Version: 1.6.2
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -95,23 +95,27 @@ class ClientDash extends ClientDash_Functions {
 	public static $_cd_widgets = array(
 		'cd_account'   => array(
 			'title'       => 'Client Dash Account',
+			'ID'          => 'cd_account',
 			'description' => 'The core Client Dash account page.',
-			'_callback'    => array( 'ClientDash_Widget_Account', 'widget_content' ),
+			'_callback'   => array( 'ClientDash_Widget_Account', 'widget_content' ),
 		),
 		'cd_help'      => array(
 			'title'       => 'Client Dash Help',
+			'ID'          => 'cd_help',
 			'description' => 'The core Client Dash help page.',
-			'_callback'    => array( 'ClientDash_Widget_Help', 'widget_content' ),
+			'_callback'   => array( 'ClientDash_Widget_Help', 'widget_content' ),
 		),
 		'cd_reports'   => array(
 			'title'       => 'Client Dash Reports',
+			'ID'          => 'cd_reports',
 			'description' => 'The core Client Dash reports page.',
-			'_callback'    => array( 'ClientDash_Widget_Reports', 'widget_content' ),
+			'_callback'   => array( 'ClientDash_Widget_Reports', 'widget_content' ),
 		),
 		'cd_webmaster' => array(
 			'title'       => 'Client Dash Webmaster',
+			'ID'          => 'cd_webmaster',
 			'description' => 'The core Client Dash webmaster page.',
-			'_callback'    => array( 'ClientDash_Widget_Webmaster', 'widget_content' ),
+			'_callback'   => array( 'ClientDash_Widget_Webmaster', 'widget_content' ),
 		),
 	);
 
@@ -616,6 +620,7 @@ class ClientDash extends ClientDash_Functions {
 		// widgets need to be translated
 		if ( empty( $sidebars[ $current_sidebar ] ) ) {
 
+
 			// MAYBETODO Make widgets init on startup so this can just be a "return;"
 			$new_widgets = $this::$_cd_widgets;
 		} else {
@@ -638,7 +643,7 @@ class ClientDash extends ClientDash_Functions {
 				$widget['ID'] = isset( $widget['_cd_extension'] ) && $widget['_cd_extension'] == '1' ? $ID : $ID_base;
 
 				// Add it on
-				$new_widgets[ ] = $widget;
+				$new_widgets[] = $widget;
 			}
 		}
 
@@ -646,7 +651,7 @@ class ClientDash extends ClientDash_Functions {
 			foreach ( $new_widgets as $widget ) {
 
 				// Pass over if is a plugin / theme / WP Core widget and didn't original exist for current user
-				if ( $widget['plugin'] == '1' && ! array_key_exists( $widget['ID'], $this->active_widgets ) ) {
+				if ( isset( $widget['plugin'] ) && $widget['plugin'] == '1' && ! array_key_exists( $widget['ID'], $this->active_widgets ) ) {
 					return;
 				}
 

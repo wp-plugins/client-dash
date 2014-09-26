@@ -447,6 +447,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 		if ( property_exists( __CLASS__, $property ) ) {
 
 			$vars = get_class_vars( __CLASS__ );
+
 			return $vars[ $property ];
 		}
 	}
@@ -1208,7 +1209,14 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 				'output_key' => 'ID',
 			)
 		);
-		$menu_items          = array();
+
+		// Bail if no items
+		if ( empty( $unsorted_menu_items ) ) {
+			return;
+		}
+
+		$menu_items = array();
+
 		foreach ( $unsorted_menu_items as $_item ) {
 			$menu_items[ $_item->db_id ] = $_item;
 		}
@@ -1235,9 +1243,9 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 				// If the comments page, get the html generated mimicked from WP core (/wp-admin/menus.php:~94)
 				if ( $menu_item->title == 'Comments' ) {
 
-					$awaiting_mod = wp_count_comments();
-					$awaiting_mod = $awaiting_mod->moderated;
-					$menu_item->title = sprintf( __('Comments %s'), "<span class='awaiting-mod count-$awaiting_mod'><span class='pending-count'>" . number_format_i18n($awaiting_mod) . "</span></span>" );
+					$awaiting_mod     = wp_count_comments();
+					$awaiting_mod     = $awaiting_mod->moderated;
+					$menu_item->title = sprintf( __( 'Comments %s' ), "<span class='awaiting-mod count-$awaiting_mod'><span class='pending-count'>" . number_format_i18n( $awaiting_mod ) . "</span></span>" );
 				}
 
 				if ( strpos( $menu_item->url, 'separator' ) !== false ) {
@@ -1600,7 +1608,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 
 		$args = wp_parse_args( $menu_item_data, $defaults );
 
-		// Some defaults for when updating
+		// Some defaults for when creating
 		if ( ! $update && empty( $args['original-title'] ) ) {
 			$args['original-title'] = $args['title'];
 		}
@@ -1626,7 +1634,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 
 		// Create the new post item
 		if ( ! $update ) {
-			$post['ID']      = 0;
+			unset( $post['ID'] );
 			$menu_item_db_id = wp_insert_post( $post );
 			$menu_item_db_id = (int) $menu_item_db_id;
 
