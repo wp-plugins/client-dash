@@ -6,7 +6,9 @@
  * Adds the core content section for Account -> Sites.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Tabs
  *
  * @since Client Dash 1.5
  */

@@ -6,7 +6,9 @@
  * Adds the core content section for Settings -> Webmaster.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Webmaster
  *
  * @since Client Dash 1.5
  */
@@ -51,22 +53,6 @@ class ClientDash_Core_Page_Settings_Tab_Webmaster extends ClientDash {
 		?>
 
 		<table class="form-table">
-			<tr valign="top">
-				<th scope="row">
-					<label for="cd_webmaster_enable">Webmaster Page Status</label>
-				</th>
-				<td>
-					<?php
-					if ( get_option( 'cd_hide_page_webmaster', $this->option_defaults['hide_page_webmaster'] ) ) {
-						echo '<span class="cd-webmaster-off">OFF</span>';
-					} else {
-						echo '<span class="cd-webmaster-on">ON</span>';
-					}
-					?>
-					This is turned on and off in the <a href="<?php echo $this->get_settings_url( 'display' ); ?>">Display
-						Tab</a>
-				</td>
-			</tr>
 			<tr valign="top">
 				<th scope="row">
 					<label for="cd_webmaster_name">Webmaster Name</label>

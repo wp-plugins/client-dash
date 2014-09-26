@@ -6,7 +6,9 @@
  * Creates the toolbar sub-menu item and the page for Settings.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Pages
  *
  * @since Client Dash 1.5
  */
@@ -53,10 +55,7 @@ class ClientDash_Page_Settings extends ClientDash {
 
 		// Display Tab
 		register_setting( 'cd_options_display', 'cd_content_sections_roles' );
-		register_setting( 'cd_options_display', 'cd_hide_page_account' );
-		register_setting( 'cd_options_display', 'cd_hide_page_reports' );
-		register_setting( 'cd_options_display', 'cd_hide_page_help' );
-		register_setting( 'cd_options_display', 'cd_hide_page_webmaster' );
+		register_setting( 'cd_options_display', 'cd_display_settings_updated' );
 
 		// Widgets Tab
 		register_setting( 'cd_options_widgets', 'cd_widgets' );
@@ -102,12 +101,19 @@ class ClientDash_Page_Settings extends ClientDash {
 		?>
 		<div class="wrap cd-settings">
 
-			<form method="post" action="options.php">
-				<?php
+			<?php
+			// Default to wrapping everything in the form, but allow to be disabled
+			if ( apply_filters( 'cd_settings_form_wrap', true ) ) {
+
+				echo '<form method="post" action="options.php">';
+
 				// Prepare cd_settings
 				settings_fields( 'cd_options_' . $tab );
+			}
 
-				$this->the_page_title( 'settings' );
+			?>
+			<h2 class="cd-title"><span class="dashicons dashicons-admin-settings cd-icon"></span><span class="cd-title-text">Client Dash Settings</span></h2>
+			<?php
 				$this->create_tab_page();
 
 				// Can modify submit button with this filter
@@ -115,7 +121,12 @@ class ClientDash_Page_Settings extends ClientDash {
 				$submit = '<input type="submit" name="submit" id="submit" class="button button-primary" value="Save Changes">';
 				echo apply_filters( 'cd_submit', $submit );
 				?>
-			</form>
+			<?php
+			// Default to wrapping everything in the form, but allow to be disabled
+			if ( apply_filters( 'cd_settings_form_wrap', true ) ) {
+				echo '</form>';
+			}
+			?>
 		</div>
 	<?php
 	}

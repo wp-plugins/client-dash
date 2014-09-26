@@ -7,28 +7,13 @@
  * core page.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Widgets
  *
  * @since Client Dash 1.5
  */
 class ClientDash_Widget_Account extends ClientDash {
-
-	/**
-	 * The main construct function.
-	 *
-	 * @since Client Dash 1.5
-	 */
-	public function __construct() {
-
-		$this->add_widget( array(
-			'ID'            => 'account',
-			'title'         => 'Account',
-			'description'   => 'The core Account widget.',
-			'callback'      => array( 'ClientDash_Widget_Account', 'widget_content' ),
-			'edit_callback' => false,
-			'cd_page'       => 'account'
-		) );
-	}
 
 	/**
 	 * The content of the widget.

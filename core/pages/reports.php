@@ -6,7 +6,9 @@
  * Creates the toolbar submenu item and the page for Reports.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Pages
  *
  * @since Client Dash 1.5
  */

@@ -6,7 +6,9 @@
  * Adds the core content section for Settings -> Display.
  *
  * @package WordPress
- * @subpackage Client Dash
+ * @subpackage ClientDash
+ *
+ * @category Tabs
  *
  * @since Client Dash 1.5
  */
@@ -29,7 +31,7 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 
 	public function add_reset_button( $submit ) {
 
-		$reset = '<input type="button" class="button cd-reset-roles" value="Reset Roles" onclick="if ( confirm(\'WARNING: This will reset all role settings back to default. \\n\\nAre you sure you want to do this?\') ) cd_reset_roles();" />';
+		$reset = '<input type="button" class="button cd-reset-display" value="Reset Roles" onclick="if ( confirm(\'WARNING: This will reset all role settings back to default. \\n\\nAre you sure you want to do this?\') ) cdAJAX.reset_roles();" />';
 
 		return $submit . $reset;
 	}
@@ -43,8 +45,13 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 
 		global $ClientDash;
 
+		// Tells us that this page has been updated
+		?>
+		<input type="hidden" name="cd_display_settings_updated" value="1" />
+		<?php
+
 		// Add our reset roles button next to submit
-		add_filter( 'cd_submit', array( $this, 'add_reset_button' ) );;
+		add_filter( 'cd_submit', array( $this, 'add_reset_button' ) );
 		?>
 		<p>Use this page to disable specific content for specific roles. Simply un-check the role inside of any content
 			block you want to disable for that role.</p>
@@ -67,7 +74,6 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 
 		// Cycle through all content sections and output accordingly
 		foreach ( $ClientDash->content_sections_unmodified as $page => $tabs ) {
-			$disabled = get_option( "cd_hide_page_$page", $this->option_defaults["hide_page_$page"] );
 
 			// Find out if all roles have been unchecked
 			$all_disabled = true;
@@ -82,6 +88,9 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 						}
 					}
 				}
+			} else {
+				// ... or if the option is NOT set, we can assume defaults wouldn't do this... right?
+				$all_disabled = false;
 			}
 
 			// Skip page "Settings"
@@ -90,50 +99,48 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 			}
 
 			// Item
-			echo '<li class="cd-roles-grid-item">';
+			echo '<li class="cd-display-grid-item">';
 
 			// Page box
-			echo '<div class="cd-roles-grid-page" onclick="cd_toggle_roles_page(this)">';
+			echo '<div class="cd-display-grid-page" onclick="cdMain.toggle_roles_page(this)">';
 
-			echo '<p class="cd-roles-grid-title">';
-
-			// Creates a toggle "switch" for disabling the page entirely
-			echo '<span class="cd-toggle-switch ' . ( empty( $disabled ) ? 'on' : 'off' ) . '" data-inverse="true">';
-			echo '<input type="hidden" name="cd_hide_page_' . $page . '" value="1" ' . ( empty( $disabled ) ? 'disabled' : '' ) . '/>';
-			echo '</span>';
+			echo '<p class="cd-display-grid-title">';
 
 			echo ucwords( str_replace( '_', ' ', $page ) );
 
 			// All disabled tip
 			echo '<span style="position:relative;">';
 			if ( $all_disabled ) {
-				echo $this->tip( 'All roles are disabled so this page won\'t show for anybody.', 'left', 'cd-tip-all-disabled' );
+				echo $this->pointer( 'All roles are disabled so this page won\'t show for anybody.', 'left', 'cd-tip-all-disabled' );
 			}
 			echo '</span>';
 
 			echo '<span class="cd-up-down"></span>';
 			echo '</p>';
-			echo '</div>'; // .cd-roles-grid-page
+			echo '</div>'; // .cd-display-grid-page
 
 			foreach ( $tabs as $tab => $props ) {
 
 				// Tab Box
-				echo '<div class="cd-roles-grid-tab hidden">';
-				echo '<p class="cd-roles-grid-title" onclick="cd_toggle_roles_tab(this)">';
+				echo '<div class="cd-display-grid-tab hidden">';
+				echo '<p class="cd-display-grid-title">';
 				echo $props['name'];
-				echo '<span class="cd-up-down"></span>';
 				echo '</p>';
 
 				foreach ( $props['content-sections'] as $block_ID => $props_block ) {
 
 					// Content Box
-					echo '<div class="cd-roles-grid-block hidden">';
-					echo '<p class="cd-roles-grid-title">' . $props_block['name'] . '</p>';
-					echo '<p class="description">Un-check all who should <strong>not</strong> see this content.</p>';
+					echo '<div class="cd-display-grid-block">';
+					echo '<p class="cd-display-grid-title">' . $props_block['name'] . '</p>';
+					echo '<p class="description">All checked sections will be visible to the given role.</p>';
 					echo '<p class="cd-roles-grid-list">';
 
 					// Create checkboxes for all roles
 					foreach ( $roles as $role_ID => $props_role ) {
+
+						// Get these values so we can save space later
+						$option_value  = $content_sections_roles[ $page ][ $tab ][ $block_ID ][ $role_ID ];
+
 						// If the current checkbox being generated is the current user (which
 						// should always be admin), skip it
 						$current_role = $this->get_user_role();
@@ -141,32 +148,28 @@ class ClientDash_Core_Page_Settings_Tab_Display extends ClientDash {
 							continue;
 						}
 
-						echo '<span class="cd-roles-grid-checkbox">';
+						echo '<span class="cd-display-grid-checkbox">';
 						echo "<input type='hidden'
 						             name='cd_content_sections_roles[$page][$tab][$block_ID][$role_ID]'
-						             value='1'>";
+						             value='hidden'>";
 						echo "<input type='checkbox'
 					             name='cd_content_sections_roles[$page][$tab][$block_ID][$role_ID]'
-					             value='0'
+					             value='visible'
 					             id='$page-$tab-$role_ID' ";
 
-						// Check the checkbox if the role does not exist or the defaults have it set to be
-						if ( empty( $content_sections_roles[ $page ][ $tab ][ $block_ID ][ $role_ID ] )
-						     || $content_sections_roles[ $page ][ $tab ][ $block_ID ][ $role_ID ] == '0'
-						) {
-							echo 'checked';
-						}
+						// Check the checkbox if set to visible
+						echo $option_value == 'visible' ? 'checked' : '';
 						echo '/>'; // Close off checkbox
 						echo '<label for="' . $page . '-' . $tab . '-' . $role_ID . '">' . $props_role['name'] . '</label>';
 						echo '</span>';
 					}
 					echo '</p>'; // .cd-roles-grid-list
 
-					echo '</div>'; // .cd-roles-grid-block
+					echo '</div>'; // .cd-display-grid-block
 				}
-				echo '</div>'; // .cd-roles-grid-tab
+				echo '</div>'; // .cd-display-grid-tab
 			}
-			echo '</li>'; // .cd-roles-grid-item
+			echo '</li>'; // .cd-display-grid-item
 		}
 
 		echo '</ul>'; // #cd-roles-grid
