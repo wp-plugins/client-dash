@@ -84,7 +84,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 	 *
 	 * @since Client Dash 1.6
 	 */
-	public $matching_urls = [ ];
+	public $matching_urls = array();
 
 	/**
 	 * All WordPress core nav menu items (aside from post types).
@@ -636,7 +636,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 		// that we make WP think the current user is NOT super admin, because that overrides all
 		// capabilities
 		if ( is_super_admin( $current_user->ID ) ) {
-			$super_admins = [ ];
+			$super_admins = array();
 		}
 
 		$new_role = $_POST['cd_create_admin_menu'];
@@ -771,7 +771,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 
 		global $ClientDash;
 
-		$AJAX_output = [ ];
+		$AJAX_output = array();
 
 		$AJAX_output['menu_ID'] = $this->menu_ID;
 		$AJAX_output['role']    = $role;
@@ -837,6 +837,13 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 	public function get_current_menu() {
 
 		global $cd_current_menu_id, $cd_current_menu_role;
+
+		// If creating, things are different
+		if ( isset( $_GET['cd_create_admin_menu'] ) ) {
+			$this->menu_ID = false;
+			$this->role = $_GET['cd_create_admin_menu'];
+			return;
+		}
 
 		// If a menu isn't set, just take the first one that exists. Otherwise, get it from the url
 		if ( isset( $_GET['menu'] ) ) {
@@ -1635,7 +1642,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 		// Create the new post item
 		if ( ! $update ) {
 			unset( $post['ID'] );
-			$menu_item_db_id = wp_insert_post( $post );
+			$menu_item_db_id = wp_insert_post( $post, true );
 			$menu_item_db_id = (int) $menu_item_db_id;
 
 			// Set all of the post meta

@@ -4,7 +4,7 @@ Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
 Tested up to: 4.0.0
-Stable tag: 1.6.2
+Stable tag: 1.6.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,7 +28,7 @@ As of version 1.6, you are now able to completely customize the WordPress admin 
 
 Customizing the admin menu previously was very complicated and no elegant, intuitive solutions existed. With Client Dash, it is now so easy that anyone familiar with the existing WordPress menu system can do it.
 
-Admin menus are also controlled on a per role basis so you are able to completely control the admin menu for each individual role (including custom roles!).
+Admin menus are also controlled on a per role basis so you are able to completely control the admin menu for each individual role.
 
 = Dashboard Widget Manager =
 
@@ -90,6 +90,15 @@ Using this plugin is very simple. All you have to do is:
 7. Client Dash has a few addons available, and many more to come!
 
 == Changelog ==
+
+= 1.6.3 =
+* Dashboard sidebar widgets erased after messing with core widget area
+* Add nag on icons page if under wp 3.9 because not all icons will show
+* Syntax error on PHP 5.3 and previous
+* Network activated or activated on main site of multi-site causes CD styles to exist on network admin dashboard
+* Dashboard widget CD Core items visibility not dynamic on initial install
+* Webmaster widget custom title modifications no longer allowed from CD Settings -> Widgets
+* Altering CD widgets erases WP widgets and vice versa
 
 = 1.6.2 =
 * Small bug with widgets on initial install.
