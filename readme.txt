@@ -93,6 +93,7 @@ Using this plugin is very simple. All you have to do is:
 
 = 1.6.4 =
 * Default dashboard widgets for CD Core had "Client Dash" in them. Removed that.
+* Made link visibility in Reports -> Site dependent on user capabilities.
 * Fixed "Plugins 0" on menus page to be "Plugins".
 
 = 1.6.3 =
