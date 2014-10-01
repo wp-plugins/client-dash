@@ -3,7 +3,7 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.6.3
+Version: 1.6.4
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -12,7 +12,6 @@ Author URI: http://realbigmarketing.com/staff/kyle
 // TODO Correctly line break documentation to PHP guideline
 
 // NEXTUPDATE 1.7 - Themes
-// NEXTUPDATE 1.7 -
 
 // FUTUREBUILD Only require page / tab specific files WHEN they are needed. Not always.
 
@@ -39,7 +38,7 @@ class ClientDash extends ClientDash_Functions {
 	 *
 	 * @since Client Dash 1.5
 	 */
-	public $version = '1.6.1';
+	public $version = '1.6.4';
 
 	/**
 	 * The path to the plugin.
@@ -93,28 +92,28 @@ class ClientDash extends ClientDash_Functions {
 	 */
 	public static $_cd_widgets = array(
 		'cd_account'   => array(
-			'title'       => 'Client Dash Account',
+			'title'       => 'Account',
 			'ID'          => 'cd_account',
 			'description' => 'The core Client Dash account page.',
 			'_cd_core'    => '1',
 			'_callback'   => array( 'ClientDash_Widget_Account', 'widget_content' ),
 		),
 		'cd_help'      => array(
-			'title'       => 'Client Dash Help',
+			'title'       => 'Help',
 			'ID'          => 'cd_help',
 			'description' => 'The core Client Dash help page.',
 			'_cd_core'    => '1',
 			'_callback'   => array( 'ClientDash_Widget_Help', 'widget_content' ),
 		),
 		'cd_reports'   => array(
-			'title'       => 'Client Dash Reports',
+			'title'       => 'Reports',
 			'ID'          => 'cd_reports',
 			'description' => 'The core Client Dash reports page.',
 			'_cd_core'    => '1',
 			'_callback'   => array( 'ClientDash_Widget_Reports', 'widget_content' ),
 		),
 		'cd_webmaster' => array(
-			'title'       => 'Client Dash Webmaster',
+			'title'       => 'Webmaster',
 			'ID'          => 'cd_webmaster',
 			'description' => 'The core Client Dash webmaster page.',
 			'_cd_core'    => '1',
@@ -623,7 +622,12 @@ class ClientDash extends ClientDash_Functions {
 		global $wp_meta_boxes;
 
 		$sidebars = get_option( 'sidebars_widgets' );
-
+		
+		/**
+		 * This allows the currently visible dashboard "sidebar" to be changed from the default.
+		 *
+		 * @since Client Dash 1.6.4
+		 */
 		$current_sidebar = apply_filters( 'cd_dashboard_widgets_sidebar', "cd-dashboard" );
 
 		// If no widgets have been set up yet, just use default ones. Otherwise, the new

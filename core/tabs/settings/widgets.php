@@ -2,6 +2,8 @@
 
 // MAYBETODO Translate pre-1.6 widgets to post
 
+// TODO Make adding widgets from extensions use a filter
+
 /**
  * Class ClientDash_Page_Settings_Tab_Widgets
  *
@@ -50,6 +52,9 @@ class ClientDash_Core_Page_Settings_Tab_Widgets extends ClientDash {
 	function __construct() {
 
 		global $ClientDash;
+
+		// Allow filtering of some properties
+		$this->filter_properties();
 
 		// Filter the sidebars_widgets option
 		add_filter( 'pre_update_option_sidebars_widgets', array( $this, 'sync_widgets' ), 10, 2 );
@@ -102,6 +107,23 @@ class ClientDash_Core_Page_Settings_Tab_Widgets extends ClientDash {
 			'tab'      => 'Widgets',
 			'callback' => array( $this, 'block_output' )
 		) );
+	}
+
+	// FIXED Added a filtering function
+
+	/**
+	 * Houses some filters that allow modifications to the class.
+	 *
+	 * @since Client Dash 1.6.4
+	 */
+	private function filter_properties() {
+
+		/**
+		 * Allows the available sidebars in the CD Settings -> Widgets page to be modified.
+		 *
+		 * @since Client Dash 1.6.4
+		 */
+		$this->sidebars = apply_filters( 'cd_widget_sidebars', $this->sidebars );
 	}
 
 	/**
@@ -281,8 +303,10 @@ class ClientDash_Core_Page_Settings_Tab_Widgets extends ClientDash {
 
 		global $wp_widget_factory;
 
+		// FIXED Notice of undefined property for widgets API
+
 		// Only allow this function to fire if widgets are currently active
-		if ( ! $this->active ) {
+		if ( ! isset( $this->active ) || ! $this->active ) {
 			return;
 		}
 
