@@ -3,7 +3,7 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.6.4
+Version: 1.6.5
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -38,7 +38,7 @@ class ClientDash extends ClientDash_Functions {
 	 *
 	 * @since Client Dash 1.5
 	 */
-	public $version = '1.6.4';
+	protected static $version = '1.6.5';
 
 	/**
 	 * The path to the plugin.
@@ -379,6 +379,10 @@ class ClientDash extends ClientDash_Functions {
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 	}
 
+	public static function get_version() {
+		return self::$version;
+	}
+
 	/**
 	 * Registers all Client Dash scripts.
 	 *
@@ -391,7 +395,7 @@ class ClientDash extends ClientDash_Functions {
 			'cd-main',
 			plugin_dir_url( __FILE__ ) . 'assets/js/clientdash.min.js',
 			array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-effects-shake' ),
-			WP_DEBUG == false ? $this->version : time()
+			WP_DEBUG == false ? $this::$version : time()
 		);
 
 		wp_localize_script( 'cd-main', 'cdData', $this->jsData );
@@ -401,7 +405,7 @@ class ClientDash extends ClientDash_Functions {
 			'cd-main',
 			plugins_url( 'assets/css/clientdash.min.css', __FILE__ ),
 			array(),
-			WP_DEBUG == false ? $this->version : time()
+			WP_DEBUG == false ? $this::$version : time()
 		);
 	}
 
@@ -665,7 +669,7 @@ class ClientDash extends ClientDash_Functions {
 			foreach ( $new_widgets as $widget ) {
 
 				// Pass over if is a plugin / theme / WP Core widget and didn't original exist for current user
-				if ( isset( $widget['plugin'] ) && $widget['plugin'] == '1' && ! array_key_exists( $widget['ID'], $this->active_widgets ) ) {
+				if ( isset( $widget['_plugin'] ) && $widget['_plugin'] == '1' && ! array_key_exists( $widget['ID'], $this->active_widgets ) ) {
 					return;
 				}
 

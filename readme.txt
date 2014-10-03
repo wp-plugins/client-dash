@@ -4,7 +4,7 @@ Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
 Tested up to: 4.0.0
-Stable tag: 1.6.4
+Stable tag: 1.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,14 @@ Using this plugin is very simple. All you have to do is:
 7. Client Dash has a few addons available, and many more to come!
 
 == Changelog ==
+
+= 1.6.5 =
+* Made jQuery live for the icon-selector dropdown in CD Settings -> Menus so that it would also work for newly added menu items.
+* Made sure the filter that removes CD admin menu nav menus from WP Core lists applies everywhere (they were showing in the customizer in the custom menu widget).
+* Menus generated for administrators weren't getting all items, due to custom capabilities. Now if you have "manage_options" (typically only admins) you get all menu items.
+* Changed how the new admin menu was added in order to gain more control over order, which fixed the sub-menu being out of order bug.
+* Changed the code to tell which page is the current page to be a little more specific.
+* Menu items in CD Settings -> Menus now display not just live icons, but images and svg as well. (svg is a bit buggy still though).
 
 = 1.6.4 =
 * Default dashboard widgets for CD Core had "Client Dash" in them. Removed that.
