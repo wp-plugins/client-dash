@@ -343,7 +343,7 @@ class CD_AdminMenu_AvailableItems_Callbacks extends ClientDash_Core_Page_Setting
 					<?php
 
 					$i = 0;
-					foreach ( self::_get( 'wp_core' ) as $item_title => $item ) {
+					foreach ( self::$wp_core as $item_title => $item ) {
 						$i --;
 
 						// Skip if no cap
@@ -371,9 +371,9 @@ class CD_AdminMenu_AvailableItems_Callbacks extends ClientDash_Core_Page_Setting
 			<div id="tabs-panel-wordpress-core-submenu" class="tabs-panel tabs-panel-inactive">
 				<ul id="posttypechecklist-wordpress-core" class="categorychecklist form-no-clear">
 					<?php
-					$core_items = self::_get( 'wp_core' );
+					$core_items = self::$wp_core;
 
-					foreach ( self::_get( 'wp_core' ) as $item_title => $item ) {
+					foreach ( self::$wp_core as $item_title => $item ) {
 
 						if ( isset( $item['submenus'] ) ) {
 
@@ -454,7 +454,7 @@ class CD_AdminMenu_AvailableItems_Callbacks extends ClientDash_Core_Page_Setting
 		$role = get_role( $cd_current_menu_role ? $cd_current_menu_role : 'administrator' );
 
 		// Get core items
-		$wp_core = self::_get( 'wp_core' );
+		$wp_core = self::$wp_core;
 
 		// Separate out only the items added by plugins
 		$menu_items = array();
@@ -741,9 +741,7 @@ class CD_AdminMenu_AvailableItems_Callbacks extends ClientDash_Core_Page_Setting
 	 *
 	 * @since Client Dash 1.6
 	 */
-	public static function custom_link() {
-		// MAYBETODO Sanitize url
-		?>
+	public static function custom_link() {		?>
 		<div id="custom-link" class="posttypediv">
 
 			<div id="tabs-panel-custom-link" class="tabs-panel-active categorychecklist form-no-clear">

@@ -4,7 +4,7 @@ Contributors: BrashRebel, joelworsham
 Tags: client, portal, dashboard, admin, users, webmaster
 Requires at least: 3.8.0
 Tested up to: 4.0.0
-Stable tag: 1.6.5
+Stable tag: 1.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,10 @@ Using this plugin is very simple. All you have to do is:
 7. Client Dash has a few addons available, and many more to come!
 
 == Changelog ==
+
+= 1.6.6 =
+* Allowed the Links menu item to be available in Client Dash only when the link manager functionality is enabled.
+* Fixed edge-case fatal error due to some inconsistency in the code.
 
 = 1.6.5 =
 * Made jQuery live for the icon-selector dropdown in CD Settings -> Menus so that it would also work for newly added menu items.

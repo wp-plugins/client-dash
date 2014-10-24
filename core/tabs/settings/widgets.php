@@ -1,7 +1,5 @@
 <?php
 
-// MAYBETODO Translate pre-1.6 widgets to post
-
 /**
  * Class ClientDash_Page_Settings_Tab_Widgets
  *

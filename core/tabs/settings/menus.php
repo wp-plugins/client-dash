@@ -1,7 +1,5 @@
 <?php
 
-// TODO Core CD Pages should use the icon set in CD -> Settings as the menu icon
-
 /**
  * Class ClientDash_Core_Page_Settings_Tab_Menus
  *
@@ -154,6 +152,25 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 				'Add New' => array(
 					'url'        => 'media-new.php',
 					'capability' => 'upload_files',
+				),
+			),
+		),
+		'Links'      => array(
+			'url'        => 'link-manager.php',
+			'icon'       => 'dashicons-admin-links',
+			'capability' => 'manage_links',
+			'submenus'   => array(
+				'All Links' => array(
+					'url'        => 'link-manager.php',
+					'capability' => 'manage_links',
+				),
+				'Add New' => array(
+					'url'        => 'link-add.php',
+					'capability' => 'manage_links',
+				),
+				'Link Categories' => array(
+					'url'        => 'edit-tags.php?taxonomy=link_category',
+					'capability' => 'manage_categories',
 				),
 			),
 		),
@@ -523,7 +540,7 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 	 */
 	public function get_orig_admin_menu() {
 
-		global $menu, $submenu;
+		global $menu, $submenu, $wp_filter;
 
 		// $menu
 		// 0 => Menu Title, 1 => Capability, 2 => Slug, 3 => Page Title, 4 => Classes, 5 => Hookname, 6 => Icon
@@ -533,8 +550,10 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 
 		foreach ( $menu as $menu_location => $menu_item ) {
 
-			// Skip links
-			if ( $menu_item[0] == 'Links' ) {
+			// Skip links IF the link manager is not enabled
+			// Links are disabled as of WP 3.5, and only enabled with the presence of this filter being true. So if this
+			// filter is set, we can pretty safely assume it's set to true.
+			if ( $menu_item[0] == 'Links' && $wp_filter['pre_option_link_manager_enabled'] === null ) {
 				continue;
 			}
 
@@ -740,6 +759,8 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 
 			// Now populate it with menu items (this is a hefty memory toll)
 			$this->populate_nav_menu( $role_name );
+
+			$this->get_current_menu();
 		} else {
 
 			// If creating a blank menu and an admin, make sure the CD page is there
@@ -1823,8 +1844,6 @@ class ClientDash_Core_Page_Settings_Tab_Menus extends ClientDash {
 	 * @since Client Dash 1.6
 	 */
 	public function block_output() {
-
-		// MAYBEFIX Error nag not showing for subscriber with duplicate parent slugs
 
 		// Populate the side sortables area
 		$this->populate_side_sortables();

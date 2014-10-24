@@ -3,17 +3,10 @@
 /*
 Plugin Name: Client Dash
 Description: Creating a more intuitive admin interface for clients.
-Version: 1.6.5
+Version: 1.6.6
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
-
-// TODO Allow dashboard meta box styling to be disabled (possibly extension?)
-// TODO Correctly line break documentation to PHP guideline
-
-// NEXTUPDATE 1.7 - Themes
-
-// FUTUREBUILD Only require page / tab specific files WHEN they are needed. Not always.
 
 // Require the functions class first so we can extend it
 include_once( plugin_dir_path( __FILE__ ) . 'core/functions.php' );
@@ -38,7 +31,7 @@ class ClientDash extends ClientDash_Functions {
 	 *
 	 * @since Client Dash 1.5
 	 */
-	protected static $version = '1.6.5';
+	protected static $version = '1.6.6';
 
 	/**
 	 * The path to the plugin.
@@ -320,6 +313,7 @@ class ClientDash extends ClientDash_Functions {
 	 * @since Client Dash 1.5
 	 */
 	function __construct() {
+		add_filter( 'pre_option_link_manager_enabled', '__return_true' );
 
 		// Update all options if not set
 		$init_reset = get_option( 'cd_initial_reset' );
@@ -395,7 +389,7 @@ class ClientDash extends ClientDash_Functions {
 			'cd-main',
 			plugin_dir_url( __FILE__ ) . 'assets/js/clientdash.min.js',
 			array( 'jquery', 'jquery-ui-sortable', 'jquery-ui-draggable', 'jquery-effects-shake' ),
-			WP_DEBUG == false ? $this::$version : time()
+			WP_DEBUG == false ? self::$version : time()
 		);
 
 		wp_localize_script( 'cd-main', 'cdData', $this->jsData );
@@ -405,7 +399,7 @@ class ClientDash extends ClientDash_Functions {
 			'cd-main',
 			plugins_url( 'assets/css/clientdash.min.css', __FILE__ ),
 			array(),
-			WP_DEBUG == false ? $this::$version : time()
+			WP_DEBUG == false? self::$version : time()
 		);
 	}
 
@@ -638,8 +632,6 @@ class ClientDash extends ClientDash_Functions {
 		// widgets need to be translated
 		if ( empty( $sidebars[ $current_sidebar ] ) ) {
 
-
-			// MAYBETODO Make widgets init on startup so this can just be a "return;"
 			$new_widgets = $this::$_cd_widgets;
 		} else {
 
