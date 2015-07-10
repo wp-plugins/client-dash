@@ -1,12 +1,14 @@
 <?php
-
 /*
-Plugin Name: Client Dash
-Description: Creating a more intuitive admin interface for clients.
-Version: 1.6.7
-Author: Joel Worsham & Kyle Maurer
-Author URI: http://realbigmarketing.com/staff
-*/
+ * Plugin Name: ClientDash
+ * Description: Creating a more intuitive admin interface for clients.
+ * Version: 1.6.8
+ * Author: Kyle Maurer & Joel Worsham
+ * Author URI: http://realbigmarketing.com
+ * Plugin URI: http://clientdash.io
+ * Text Domain: Render
+ * Domain Path: /languages/
+ */
 
 // Require the functions class first so we can extend it
 include_once( plugin_dir_path( __FILE__ ) . 'core/functions.php' );
@@ -31,7 +33,7 @@ class ClientDash extends ClientDash_Functions {
 	 *
 	 * @since Client Dash 1.5
 	 */
-	protected static $version = '1.6.7';
+	protected static $version = '1.6.8';
 
 	/**
 	 * The path to the plugin.
@@ -88,29 +90,29 @@ class ClientDash extends ClientDash_Functions {
 			'title'       => 'Account',
 			'ID'          => 'cd_account',
 			'description' => 'The core Client Dash account page.',
+			'callback'   => array( 'ClientDash_Widget_Account', 'widget_content' ),
 			'_cd_core'    => '1',
-			'_callback'   => array( 'ClientDash_Widget_Account', 'widget_content' ),
 		),
 		'cd_help'      => array(
 			'title'       => 'Help',
 			'ID'          => 'cd_help',
 			'description' => 'The core Client Dash help page.',
+			'callback'   => array( 'ClientDash_Widget_Help', 'widget_content' ),
 			'_cd_core'    => '1',
-			'_callback'   => array( 'ClientDash_Widget_Help', 'widget_content' ),
 		),
 		'cd_reports'   => array(
 			'title'       => 'Reports',
 			'ID'          => 'cd_reports',
 			'description' => 'The core Client Dash reports page.',
+			'callback'   => array( 'ClientDash_Widget_Reports', 'widget_content' ),
 			'_cd_core'    => '1',
-			'_callback'   => array( 'ClientDash_Widget_Reports', 'widget_content' ),
 		),
 		'cd_webmaster' => array(
 			'title'       => 'Webmaster',
 			'ID'          => 'cd_webmaster',
 			'description' => 'The core Client Dash webmaster page.',
+			'callback'   => array( 'ClientDash_Widget_Webmaster', 'widget_content' ),
 			'_cd_core'    => '1',
-			'_callback'   => array( 'ClientDash_Widget_Webmaster', 'widget_content' ),
 		),
 	);
 
@@ -314,6 +316,10 @@ class ClientDash extends ClientDash_Functions {
 	 */
 	function __construct() {
 
+		if ( file_exists( __DIR__ . '/update.php' ) ) {
+			require_once __DIR__ . '/update.php';
+		}
+
 		// Update all options if not set
 		$init_reset = get_option( 'cd_initial_reset' );
 		if ( empty( $init_reset ) ) {
@@ -370,6 +376,9 @@ class ClientDash extends ClientDash_Functions {
 
 		// Shows any admin notices
 		add_action( 'admin_notices', array( $this, 'admin_notices' ) );
+
+		// Adds a few more action links to plugins list
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array( $this, 'action_links' ) );
 	}
 
 	public static function get_version() {
@@ -580,6 +589,11 @@ class ClientDash extends ClientDash_Functions {
 			}
 		}
 
+		// Add CD widgets to for continuity
+		foreach ( self::$_cd_widgets as $ID => $widget ) {
+			$this->active_widgets[ $ID ] = $widget;
+		}
+
 		// Only update for Admin
 		if ( current_user_can( 'manage_options' ) ) {
 
@@ -603,6 +617,12 @@ class ClientDash extends ClientDash_Functions {
 		$active_widgets = apply_filters( 'cd_remove_widgets', $this->active_widgets );
 
 		foreach ( $active_widgets as $widget => $values ) {
+
+			// Ignore CD core widgets
+			if ( isset( $this->active_widgets[ $widget ] ) ) {
+				continue;
+			}
+
 			remove_meta_box( $widget, 'dashboard', $values['context'] );
 		}
 
@@ -669,6 +689,7 @@ class ClientDash extends ClientDash_Functions {
 
 				// Figure out the title
 				$title = ! empty( $widget['title'] ) ? $widget['title'] : $widget['_original_title'];
+				$title = html_entity_decode( $title );
 
 				// Client Dash core widgets conditional visibility
 				if ( isset( $widget['_cd_core'] ) && $widget['_cd_core'] === '1' ) {
@@ -708,18 +729,13 @@ class ClientDash extends ClientDash_Functions {
 					$title = get_option( 'cd_webmaster_name', $this->option_defaults['webmaster_name'] );
 				}
 
-				// If callback should be an object
-				if ( isset( $widget['_is_object'] ) && $widget['_is_object'] === '1' ) {
-					if ( ! class_exists( $widget['_callback'][0] ) ) {
-						continue;
-					}
-					$widget['_callback'][0] = new $widget['_callback'][0];
-				}
+				// Steal the callback from the already existing widget
+				$callback = $this->active_widgets[ $widget['ID'] ]['callback'];
 
 				add_meta_box(
 					isset( $new_ID ) ? $new_ID : $widget['ID'],
 					$title,
-					$widget['_callback'],
+					$callback,
 					'dashboard',
 					'normal',
 					'core'
@@ -860,6 +876,22 @@ class ClientDash extends ClientDash_Functions {
 
 		// Ensure option is always unset (except right before the initial checking)
 		delete_option( 'cd_display_settings_updated' );
+	}
+
+	/**
+	 * Add a few links to the CD listing on plugins.php
+	 *
+	 * @since Client Dash 1.7
+	 *
+	 * @param $links
+	 *
+	 * @return array
+	 */
+	public function action_links( $links ) {
+		$links[] = '<a href="'. get_admin_url(null, 'options-general.php?page=cd_settings') .'">Settings</a>';
+		$links[] = '<a href="http://realbigplugins.com/?utm_source=Client%20Dash&utm_medium=Plugins%20list%20link&utm_campaign=Client%20Dash%20Plugin" target="_blank">More Real Big Plugins</a>';
+		$links[] = '<a href="http://realbigplugins.com/subscribe/?utm_source=Client%20Dash&utm_medium=Plugins%20list%20link&utm_campaign=Client%20Dash%20Plugin" target="_blank">Subscribe</a>';
+		return $links;
 	}
 }
 
